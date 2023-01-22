@@ -14,7 +14,8 @@ public class SaloonDto {
 
         s.setId(saloon.getId());
         s.setName(saloon.getName());
-        s.setOwner(UserDto.from(saloon.getOwner()));
+        // s.setOwner(UserDto.from(saloon.getOwner()));
+        s.setOwnerId(saloon.getOwner().getId());
         s.setActive(saloon.getActive());
 
         return s;
@@ -23,7 +24,8 @@ public class SaloonDto {
     @JsonProperty("key")
     private long id;
     private String name;
-    private UserDto owner;
+    // private UserDto owner;
+    private long ownerId;
     private boolean active;
 
 }

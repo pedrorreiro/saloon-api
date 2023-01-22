@@ -3,6 +3,7 @@ package com.app.saloon.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.saloon.Dtos.FunctionaryDto;
 import com.app.saloon.InputDto.FunctionaryInputDto;
 import com.app.saloon.Service.FunctionaryService;
+import com.app.saloon.Service.ServiceService;
 
 @RestController
 @RequestMapping("/functionary")
@@ -20,6 +22,9 @@ public class FunctionaryController {
 
     @Autowired
     FunctionaryService functionaryService;
+
+    @Autowired
+    ServiceService serviceService;
 
     @GetMapping
     public List<FunctionaryDto> listFunctionaries() {
@@ -44,6 +49,11 @@ public class FunctionaryController {
     @PostMapping()
     public FunctionaryDto save(@RequestBody FunctionaryInputDto functionary) {
         return functionaryService.save(functionary);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable int id) {
+        functionaryService.delete(id);
     }
 
 }

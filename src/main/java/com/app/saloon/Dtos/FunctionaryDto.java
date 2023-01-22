@@ -13,14 +13,17 @@ public class FunctionaryDto {
         FunctionaryDto f = new FunctionaryDto();
 
         f.setId(functionary.getId());
-        f.setSaloon(SaloonDto.from(functionary.getSaloon()));
+        f.setSaloonId(functionary.getSaloon().getId());
+        f.setName(functionary.getName());
 
         UserDto u = new UserDto();
 
-        u.setId(functionary.getUser().getId());
-        u.setEmail(functionary.getUser().getEmail());
-        u.setName(functionary.getUser().getName());
-        u.setActive(functionary.getUser().getActive());
+        if (functionary.getUser() != null) {
+            u.setId(functionary.getUser().getId());
+            u.setEmail(functionary.getUser().getEmail());
+            u.setActive(functionary.getUser().getActive());
+
+        }
 
         f.setUser(u);
 
@@ -31,8 +34,9 @@ public class FunctionaryDto {
 
     @JsonProperty("key")
     private long id;
+    private String name;
     private UserDto user;
-    private SaloonDto saloon;
+    private long saloonId;
     private boolean active;
 
 }

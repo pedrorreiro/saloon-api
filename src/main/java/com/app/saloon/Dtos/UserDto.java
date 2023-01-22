@@ -13,17 +13,17 @@ public class UserDto {
         UserDto u = new UserDto();
 
         u.setId(user.getId());
-        u.setName(user.getName());
         u.setEmail(user.getEmail());
         u.setActive(user.getActive());
+        u.setMySaloonId(user.getSaloon().getId());
 
         return u;
     }
 
     @JsonProperty("key")
     private long id;
-    private String name;
     private String email;
     private boolean active;
+    private long mySaloonId;
 
 }

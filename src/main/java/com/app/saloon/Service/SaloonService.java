@@ -45,7 +45,7 @@ public class SaloonService {
         return SaloonDto.from(saloon);
     }
 
-    public SaloonDto findByIdAndActiveTrue(int id) {
+    public SaloonDto findByIdAndActiveTrue(long id) {
 
         Saloon saloon = saloonRepo.findByIdAndActiveTrue(id).orElse(null);
 
@@ -70,6 +70,10 @@ public class SaloonService {
         newSaloon.setOwner(f);
 
         Saloon saloonSaved = saloonRepo.save(newSaloon);
+
+        f.setSaloon(saloonSaved);
+
+        userRepo.save(f);
 
         SaloonDto saloonToReturn = new SaloonDto();
 

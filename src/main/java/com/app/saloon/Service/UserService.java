@@ -31,16 +31,29 @@ public class UserService {
         return userDtos;
     }
 
-    public User userExistsByEmail(String email) {
+    public UserDto userExistsByEmail(String email) {
 
-        return userRepo.findByEmailAndActiveTrue(email)
+        User u = userRepo.findByEmailAndActiveTrue(email)
                 .orElseThrow(() -> new Error("Usuário não encontrado na base de dados"));
+
+        UserDto userDto = new UserDto();
+
+        BeanUtils.copyProperties(u, userDto);
+
+        return userDto;
     }
 
-    public User userExistsById(int id) {
+    public UserDto userExistsById(int id) {
 
-        return userRepo.findByIdAndActiveTrue(id)
+        User u = userRepo.findByIdAndActiveTrue(id)
                 .orElseThrow(() -> new Error("Usuário de ID " + id + " não encontrado na base de dados"));
+
+        UserDto userDto = new UserDto();
+
+        BeanUtils.copyProperties(u, userDto);
+
+        return userDto;
+
     }
 
     public User save(UserDto user) {
@@ -58,9 +71,9 @@ public class UserService {
 
         User UserSaved = userRepo.save(newUser);
 
-        // UserDto UserToReturn = new UserDto();
+        // UserDto dto = new UserDto();
 
-        // BeanUtils.copyProperties(UserSaved, UserToReturn);
+        // BeanUtils.copyProperties(UserSaved, dto);
 
         // return UserToReturn;
 

@@ -28,17 +28,17 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User login(@RequestBody Login login) {
+    public UserDto login(@RequestBody Login login) {
         return userService.userExistsByEmail(login.getEmail());
     }
 
     @GetMapping("/email/{email}")
-    public User getByEmail(@PathVariable String email) {
+    public UserDto getByEmail(@PathVariable String email) {
         return userService.userExistsByEmail(email);
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable int id) {
+    public UserDto getUserById(@PathVariable int id) {
         return userService.userExistsById(id);
     }
 

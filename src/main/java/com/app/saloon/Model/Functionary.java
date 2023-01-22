@@ -1,5 +1,8 @@
 package com.app.saloon.Model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.lang.NonNull;
 
 import jakarta.persistence.CascadeType;
@@ -10,6 +13,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
@@ -28,10 +33,12 @@ public class Functionary {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NonNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
     private User user;
+
+    @NonNull
+    @Column(nullable = false)
+    private String name;
 
     @Column(nullable = false, columnDefinition = "boolean default true")
     private Boolean active = true;
@@ -39,4 +46,8 @@ public class Functionary {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "saloon_id")
     private Saloon saloon;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "functionary_service", joinColumns = @JoinColumn(name = "functionary_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"))
+    private Set<Service> services = new HashSet<>();
 }
